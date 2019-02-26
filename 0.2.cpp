@@ -18,8 +18,7 @@ struct mokiniai
         egz;
 };
 std::vector<mokiniai> mok;
-int n=0,//kelintas mokinys, n+1=kiek mokiniu
-    zz=0;//nuo kur reik rusiuoti. Padeda tik tada, kai rusiuojama daugiau nei karta
+int n=0;//kelintas mokinys, n+1=kiek mokiniu
 void komandos();
 void ivestmok();
 double vid(int i);
@@ -31,6 +30,7 @@ int frand(bool Pirmas);//Nd skaicius, pazymiai ir egz rezultatas sugeneruojamas
 void skaitMok();
 void rodyt();
 void rykiavimas();
+bool compare(const mokiniai &a,const mokiniai &b);
 int main()
 {
     komandos();//isvedamos komandu reiksmes i ekrana
@@ -252,14 +252,15 @@ void rodyt()
         cout<<"Egz: "<<mok[i].egz<<endl;
     }
 }
-void rykiavimas()//nesugebejau parasyt efektyvesnio uz bubble sort, bet nesortins jau pries tau susortintus
+bool compare(const mokiniai &a,const mokiniai &b)
 {
-    for(int i=zz;i<n-1;i++)
-    for(int j=i+1;j<n;j++)
-        if(mok[i].vard+mok[i].pavard<mok[j].vard+mok[j].pavard)std::swap(mok[i],mok[j]);
-    zz=n;
+  //  if(a==b)
+  if(a.vard==b.vard)return(a.pavard<b.pavard);
+    return (a.vard<b.vard);
 }
-
-
+void rykiavimas()
+{
+    std::sort(mok.begin(),mok.end(),(compare));
+}
 
 
