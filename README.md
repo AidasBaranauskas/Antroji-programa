@@ -28,3 +28,11 @@ galutinius įvertinimus naudojant vidurkius. Viskas lygiuota. Grąžinama į men
 Įvedus 4, nuskaitomi naujo mokiniai iš failo "kursiokai". Grąžinama į meniu
 Įvedus 5, rodo mokinių vardus, pavardes, Nd ir egzaminio pažymius.
 Įvedus 0, vel rodo komandų sąrašą, kurį matome pradžioje šio "readme".
+
+# Trečioji-programa 0.3
+Funcijos.h ir struct.h priklauso 0.3 failui.
+
+0.3 yra patobulinta 0.2'o versija ir dabar naudoja header failus funkcijoms ir mokiniu strukturai.
+
+Exception'ai panaudoti tik vieną kartą 0.3 (main) faile. Jo paskirtis peršokti swtich'ą jei switch'ui naudojama įvestis nera skaičius.
+Įvedus seką simboliu turinčių bent vieną ne skaičių, ši netinkama reikšmė nebus galutinai paversta į switch'o naudojamą int'a (kas nutinka jei string'as sudarytas tik iš skaičių) ir į consolę bus išvesta vartotojo įvesta netinkama reikšmė ir žodžiai " nera tinkama ivestis".
