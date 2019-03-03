@@ -29,7 +29,7 @@ galutinius įvertinimus naudojant vidurkius. Viskas lygiuota. Grąžinama į men
 Įvedus 5, rodo mokinių vardus, pavardes, Nd ir egzaminio pažymius.
 Įvedus 0, vel rodo komandų sąrašą, kurį matome pradžioje šio "readme".
 
-# Trečioji-programa 0.3
+# Antroji-programa 0.3
 Funcijos.h ir struct.h priklauso 0.3 failui.
 
 0.3 yra patobulinta 0.2'o versija ir dabar naudoja header failus funkcijoms ir mokiniu strukturai.
