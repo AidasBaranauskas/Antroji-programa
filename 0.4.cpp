@@ -7,8 +7,10 @@
 #include <exception>
 #include <cctype>
 #include <fstream>
+#include <chrono>
 #include "struct.h"
 #include "funkcijos.h"
+#include "funkcijos(0.4).h"
 using std::endl;
 using std::cout;
 
@@ -55,6 +57,9 @@ int main()//main susidaro is kintamuju sukurimo, ivesties, blogos ivesties filtr
 
         case 5://rodo mokiniu info
         {rodyt(mok,n);      break;}
+
+        case 6://atlieka visa, ka reikalauja 0.4 uzduoty
+        {uzduotis();      break;}
 
         case 9://baigti darba
         {a=false;           break;}

@@ -20,8 +20,8 @@ double galutinis(mokiniai *mok, bool Vidur)
         z=med(mok);
     return 0.4*z+0.6*mok->egz;
 }
-int fcin(bool Pirmas)//jei pirmas Nd arba egzamino pazymys, tai Pirmas=true.
-{
+int fcin(bool Pirmas,bool bevertis)//jei pirmas Nd arba egzamino pazymys, tai Pirmas=true.
+{//man reikejo idet reiksme vien del to, nes fcin ir frand turi priimt vienodus imputus, o antra bool reiksme reikalinga tik frand funkcijai
     //Tada ivedus/ sugeneravus maziau nei 1, funkcija reikalaus, kad vel ivestumet/ generuos nauja
     int z;
     do
@@ -31,18 +31,20 @@ int fcin(bool Pirmas)//jei pirmas Nd arba egzamino pazymys, tai Pirmas=true.
     while(Pirmas&&z<=0);//apsauga, kad neuzbaigtu Nd ivedimo ciklo neivedus ne vieno namu darbo
     return z;
 }
-int frand(bool Pirmas)
+int frand(bool Pirmas,bool reikalingas)//jei a=false, tai frand neprintins reiksmiu (nenoriu printint 111110*6 pazymius 0.4 uzduoties metu)
 {
     //generuoja skaicius nuo -1 iki 10, isridenus -1 ar 0 baigiasi ciklas
+
     int z;
     do
     {
-        //nuo -1 iki 12.
+        //nuo -1 iki 10.
         z=rand()%12-1;//Kai nera pirmas namu darbas, reiksmes bus generuojamos kol sugeneruos -1 arba 0. 2/12 tikimybe, kad baigsis ciklas
     }
     while(Pirmas&&z<=0);//neuzbaigs generavimo isridenus 0 arba -1, kuomet dar nera kitu namu darbu pazymiu
     if(z>0)
-        std::cout<<z<<" ";//pranesa, kokie sugeneruoti
+    if(reikalingas)std::cout<<z<<" ";//pranesa, kokie sugeneruoti
+    //reikalingas visad false atliekant 0.4 uzduoti
     return z;
 }
 void ivestmok(std::vector<mokiniai> &mok, int &n)
@@ -53,7 +55,7 @@ void ivestmok(std::vector<mokiniai> &mok, int &n)
     mok.resize(n+1);
     std::cin>>mok[n].vard>>mok[n].pavard;
 
-    int (*rfun)(bool),z;//nuo jo priklauso, bus naudotojo ar tikimybes imputas
+    int (*rfun)(bool,bool),z;//nuo jo priklauso, bus naudotojo ar tikimybes imputas
     bool Rand=true;
     cout<<"Jei norit patys ivesti pazymius- iveskit 0. Ivedus kita skaiciu pazymiu skaicius ir reiksmes bus atsitiktines"<<endl;
     std::cin>>z;
@@ -69,12 +71,14 @@ void ivestmok(std::vector<mokiniai> &mok, int &n)
         rfun=fcin;
         cout<<"Iveskite Nd pazymius. Ivedus maziau nei 1 baigsis ivestis: ";
     }
+    mok[n].Nd.push_back(rfun(true,true));//bent vienas namu darbas
+    //cout<<mok[n].Nd[0];
+    mok[n].m=1;
+
     while(true)
     {
-        if(mok[n].m==0)
-            z=rfun(true);
-        else
-            z=rfun(false);
+
+        z=rfun(false,true);
         if(z<=0)
             break;
         mok[n].Nd.push_back(z);
@@ -83,12 +87,12 @@ void ivestmok(std::vector<mokiniai> &mok, int &n)
     if(Rand)
     {
         cout<<endl<<"Egzamino pazymys: ";
-        z=frand(true);
+        z=frand(true,true);
     }
     else
     {
         cout<<endl<<"Iveskite egzamino pazymi: ";
-        z=fcin(true);
+        z=fcin(true,true);
     }
     mok[n].egz=z;
     n++;
@@ -103,6 +107,7 @@ void komandos()
     cout<<"Rodyti visu mokiniu medianas- 3"<<endl;
     cout<<"Skaityti mokiniu info is failo- 4"<<endl;
     cout<<"Rodyti mokiniu info- 5"<<endl;
+    cout<<"Atlikti 0.4 uzduoti: generuoti, rusiuoti, suvesti i failus ir isvesti procesu veiklas - 6"<<endl;
     cout<<"Baigti darba- 9"<<endl;
     cout<<"Rodyti komandas- 0"<<endl;
 }
@@ -132,8 +137,8 @@ void skaitMok(std::vector<mokiniai> &mok, int &n)
 }
 bool compare(const mokiniai &a,const mokiniai &b)
 {
-  if(a.vard==b.vard)return(a.pavard<b.pavard);
-    return (a.vard<b.vard);
+    if(a.vard==b.vard)return(a.pavard<b.pavard);
+    else return (a.vard<b.vard);
 }
 void rykiavimas(std::vector<mokiniai> &mok)
 {
@@ -145,7 +150,6 @@ void isved(std::vector<mokiniai> &mok, int &n, bool Vidur)
     using std::cout;
     using std::endl;
     rykiavimas(mok);
-    srand(time(NULL));//norejau ji det i frand, bet tada visi pazymiai vienodi. Jei ivestmok- visi mokiniai vienodi
     string S[3]= {"Pavarde","Vardas","Galutinis"};
     if(Vidur)//jei skaiciuos naudojant vidurki...
         S[2]+="(Vid.)";
@@ -174,7 +178,7 @@ void isved(std::vector<mokiniai> &mok, int &n, bool Vidur)
         cout<<" "<<std::setprecision(3)<<galutinis(&mok[i],Vidur)<<endl;
     }
 }
-void rodyt(std::vector<mokiniai> &mok, int n)
+void rodyt(const std::vector<mokiniai> &mok, int n)
 {
     using std::cout;
     using std::endl;
