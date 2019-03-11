@@ -18,3 +18,11 @@ Programa duoda nurodymus per konsolę, kas reiškia jog ją galima naudot ir nes
  Įvedus '2'(kol esama pradžioje arba jei paskutinė matoma žinutė konsolėje yra "Iveskite komanda"), lygiuotai išvedami mokinių vardai bei galutiniai rezultatai naudojant Nd. vidurkius. 
  Įvedus '3', bus tas pats kaip įvedus '2', bet apskaičiuos galutinį naudojant medianą bei prie "Galutinis" skliaustuose bus "Med.", o ne "Vid."(kas būna įvedus '2').
 Kaskart paleidus išvestį (įvedus '2' arba '3'), mokiniai surykiuoti pagal vardus.
+
+# v0.2
+Visa, kas buvo praeitoje versijoje, plius dar dvi komandos:
+"Skaityti mokiniu info is failo- 4
+Rodyti mokiniu info- 5"
+Komanda #4: įvedus '4', bus nuskaitomas failas "kursiokai.txt", mokiniai įvesti į vektorių prie kitų.
+Įvygdžius #4 komandą kelis kartus, tie patys mokiniai bus pakartotinai nuskaityti.
+Komanda #5 nėra būtina, bet man jos prireikė debuginant. Ji išveda į konsolę mokinių pilnus vardus, Nd. ir egzamino pažymius.
