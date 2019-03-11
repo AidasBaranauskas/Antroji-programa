@@ -31,3 +31,9 @@ Komanda #5 nėra būtina, bet man jos prireikė debuginant. Ji išveda į konsol
 Praeitų versijų funkcijos plius header failų pritaikymas, itin minimalus try-catch panaudojimas.
 Neskaitant 0.3.cpp, taip pat reik naudot funkcijos.h ir struct.h header failus.
 Taip pat pridėta #9 komanda: "baigti darbą", kas reiškia, jog iki šiol reikėdavo patiems išjungti programą.
+
+# v0.4
+Pridėta komanda #6 ir naujas header failas funkcijos(0.4).h daugmaž atlieka 0.4 užduotį: segeneruoja 15 failų, užtat su dviem žymiom klaidom:
+pirma: pabaigoje vietoj to, kad sukurtų du arba antrą vektorių, naudojamas naujas kintamasis bool, juos atskirti.
+antra: įvygdžius #6 komandą bei tarp kiekvieno perėjimo iš pvz. darbo su 10 į darbą su 100 studentų, vektoriai ištrinami (nes ciklai kuriuose jie sukurti baigiasi).
+Generuojamų failų pavadinimai: studentai10.txt -studentai100000.txt, studentaiblog10.txt-..., studentaiGer10.txt-studentai100000.txt .
