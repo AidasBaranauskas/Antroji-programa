@@ -107,6 +107,7 @@ void komandos()
     cout<<"Rodyti visu mokiniu medianas- 3"<<endl;
     cout<<"Skaityti mokiniu info is failo- 4"<<endl;
     cout<<"Rodyti mokiniu info- 5"<<endl;
+    cout<<"Atlikti 0.4 uzduoti: generuoti, rusiuoti, suvesti i failus ir isvesti procesu veiklas - 6"<<endl;
     cout<<"Baigti darba- 9"<<endl;
     cout<<"Rodyti komandas- 0"<<endl;
 }
