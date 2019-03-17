@@ -1,81 +1,78 @@
 std::string genVard()
 {
-    int z;
-    std::string vardas;
-    vardas[0]=rand()%26+65;//vardas arba pavarde prasideda didziaja raide
-
-    do
-    {
-    vardas+=rand()%26+97;//likosios raides mazosios
-    z=rand()%4;//1/4 tikimybe, kad baigsis ciklas, todel vardo ilgis atsitiktinis
-    }while(z!=0);
+    std::string vardas{rrand('A','Z')};//vardas arba pavarde prasideda didziaja raide
+    do{
+    vardas+=rrand('a','z');//likosios raides mazosios
+    }while(rrand(0,4)!=0);//vardo ilgis bus atsitiktinis, 1/5 tikimybe, kad baigs cikla
     return vardas;
+}
+void genFile(std::vector<mokiniai> &mok, int i,std::string pav)
+{
+    string z(i+1,'0');//nuliai reikalingi failu pavadinimams
+    std::ofstream out("studentai"+pav+".1"+z+".txt");
+    //studentai+Visi/Ger/Blo+.1+0/00/.../00000+.txt
+    //pvz: studentaiVisi.10.txt
+    for(int j=0; j<mok.size(); j++)
+    {
+        out<<mok[j].vard<<" "<<mok[j].pavard<<" ";//vard, pavard
+        for(int l=0; l<mok[j].Nd.size(); l++)//Nd pazymiai
+            out<<mok[j].Nd[l]<<" ";
+        out<<mok[j].egz<<std::endl;//egzamino pazymys
+    }
+    out.close();
+}
+void genMok(mokiniai *m)
+{
+    m->vard=genVard();//duoda varda
+    m->pavard=genVard();//duoda pavarde
+
+        m->Nd.push_back(rrand(1,10));//bent 1 Nd ivertinimas
+        int z;
+        while(true)
+        {
+            z=rrand(-1,10);
+            if(z<=0)//2/12 tikimybe, kad baigs generuot Nd
+                break;
+            m->Nd.push_back(z);
+        }
+    m->egz=rrand(1,10);
 }
 void uzduotis()//sito failo funkcijos naudoja nauja mok reiksme
 {
     using namespace std::chrono;
-    int z2=5;//jei z2=2, tai bus 2 saraso failai su 10 ir 100 mokiniu
-    for(int i=0; i<z2; i++)//i=0,mok(10),i=1,mok(100)...i=4,mok(100000)
+    const int fileNum=5;//jei =1, bus 10 mok, jei 6, tai 6 failai, paskutinis su 1 mil mok
+    for(int i=0; i<fileNum; i++)//i=0 -> mok[10], i=1 -> mok[100]...i=x -> mok[10^(x+1)]
     {
     high_resolution_clock::time_point t1 = high_resolution_clock::now();
-    std::string txt;
-    int z=1;
-    for(int j=0; j<=i; j++)
-        {
-            z*=10;//kiek studentu 10-10 000
-            txt+='0';//koks pavadinimas. Failai bus "studentai.10"-"studentai.100000"
-        }
-    std::vector<mokiniai> mok(z);
-    std::ofstream out("studentai.1"+txt+".txt");
-    for(int j=0; j<z; j++)//ciklas suksis 10-100000 kartu
-    {//norejau naudot atskira funkcija, bet tingejau jai perduot "out"
-        mok[j].vard=genVard();//duoda varda
-         out<<mok[j].vard<<" ";
-        mok[j].pavard=genVard();//duoda varda
-         out<<mok[j].pavard<<" ";
+    int n=10;//pradinis studentu skaicius
+    for(int j=0; j<i; j++)n*=10;//kiek studentu 10-10 000
 
-        int z3=frand(true,false);
-        mok[j].Nd.push_back(z3);
-         out<<z3<<" ";
-        mok[j].m++;
-        while(true)
-        {
-            z3=frand(false,false);//gali but 0 ar -1, taip uzbaigiant cikla
-            if(z3<=0)//antras false pasako, kad nebus sakomos reiksmes i konsole
-                break;
-            mok[j].Nd.push_back(z3);
-             out<<z3<<" ";
+    std::vector<mokiniai> mok(n);
 
-            mok[j].m++;
-        }
-    z3=frand(true,false);
-    mok[j].egz=z3;
-     out<<z3<<std::endl;
-    }//generavimas baigiasi
-    out.close();
-    rykiavimas(mok);
-    //prasideda antra 0.4 uzduoties dalis, kuri sukuria dar 2 failus
+    for(int j=0; j<n; j++)//ciklas suksis 10^fileNum kartu nes tiek bus mokiniu
+    genMok(&mok[j]);
 
-    bool Z[z];//vietoj antro vectoriaus kurimo, surusiuosi sita naudojant bool'a. Default reiksme yra false arba tiksliau, nera daugiau nei 5. Atmintis bus tobulai naudojama
-    std::ofstream ger("studentaiGer.1"+txt+".txt");//mainais, skaitymas vektoriaus uztruks ilgiau del bool patikros
-    std::ofstream blo("studentaiBlog.1"+txt+".txt");//kai balas maziau arba lygu 5.0
-    for(int j=0; j<z; j++)
+    high_resolution_clock::time_point exclud = high_resolution_clock::now();
+    genFile(mok,i,"Visi");
+    high_resolution_clock::time_point exclud2 = high_resolution_clock::now();
+    std::vector<mokiniai> mokblo,mokger;
+
+    int n2,n3;//kiek mokblo ir mokger tures nariu
+    for(int j=n-1; j>=0; j--)
     {
-        if(galutinis(&mok[j],true)>5.0)
-        {
-            Z[i]=true;
-             ger<<mok[j].vard<<" "<<mok[j].pavard<<std::endl;
-        }
-        else
-        {
-             blo<<mok[j].vard<<" "<<mok[j].pavard<<std::endl;
-        }
+        if(galutinis(&mok[j],true)>5.0)mokger.push_back(mok[j]);
+        else mokblo.push_back(mok[j]);
+        mok.resize(j);
     }
-    ger.close();
-    blo.close();
+    rykiavimas(mokger);
+    rykiavimas(mokblo);
 
     high_resolution_clock::time_point t2 = high_resolution_clock::now();
-    auto duration = duration_cast<microseconds>(t2-t1).count();
-    std::cout<<std::endl<<duration;
-    }//for'o pabaiga ir po kiekvieno ciklo, sukurti 3 failai
-}//labai tikiuos, kad atmintis atlaisvinama po ciklo
+    auto duration = duration_cast<microseconds>(t2-t1+exclud-exclud2).count();
+    std::cout<<std::endl<<duration;//nesuprantau kodel, pirmos 2-3 reiksmes laiko = 0. Naudojimas nanoseconds nepadejo
+
+    genFile(mokger,i,"Ger");
+    genFile(mokblo,i,"Blo");
+  //  cout<<mokger.size()<<endl;
+    }
+}

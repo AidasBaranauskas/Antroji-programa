@@ -1,15 +1,19 @@
-double vid(mokiniai *mok)
+using std::endl;
+using std::cout;
+using std::string;
+double vid(mokiniai *mok)//perduodu kaip struktura, nes nenaudoju vektoriaus savybiu
 {
-    return std::accumulate(mok->Nd.begin(), mok->Nd.end(), 0.0)/mok->m;
+    return std::accumulate(mok->Nd.begin(), mok->Nd.end(), 0.0)/mok->Nd.size();
 };
 double med(mokiniai *mok)
 {
     std::sort(mok->Nd.begin(),mok->Nd.end());
-    if(mok->m%2==0)//jei lyginis pazymiu skaicius, tai jie skaiciuojami paimant ju vidurki
+    const int z=mok->Nd.size();
+    if(z%2==0)//jei lyginis pazymiu skaicius- bus skaiciuojami su dvieju vidurkii
     {
-        return float(mok->Nd[mok->m/2-1]+mok->Nd[mok->m/2])/2.;//randa viduriniu vidurki
+        return float(mok->Nd[z/2-1]+mok->Nd[z/2])/2.;//viduriniu vidurkis
     }
-    return mok->Nd[(mok->m-1)/2];//randa vidurini
+    return mok->Nd[(z-1)/2];//vidurinio reiksme
 }
 double galutinis(mokiniai *mok, bool Vidur)
 {
@@ -20,101 +24,74 @@ double galutinis(mokiniai *mok, bool Vidur)
         z=med(mok);
     return 0.4*z+0.6*mok->egz;
 }
-int fcin(bool Pirmas,bool bevertis)//jei pirmas Nd arba egzamino pazymys, tai Pirmas=true.
-{//man reikejo idet reiksme vien del to, nes fcin ir frand turi priimt vienodus imputus, o antra bool reiksme reikalinga tik frand funkcijai
-    //Tada ivedus/ sugeneravus maziau nei 1, funkcija reikalaus, kad vel ivestumet/ generuos nauja
+int fcin(int a,int b)
+{//isfiltruoja intervalo neatinkancius sveikuosius cin'us pazymiams.
     int z;
-    do
-    {
-        std::cin>>z;//ivedamas namu darbo arba egzamino pazymys
-    }
-    while(Pirmas&&z<=0);//apsauga, kad neuzbaigtu Nd ivedimo ciklo neivedus ne vieno namu darbo
-    return z;
-}
-int frand(bool Pirmas,bool reikalingas)//jei a=false, tai frand neprintins reiksmiu (nenoriu printint 111110*6 pazymius 0.4 uzduoties metu)
-{
-    //generuoja skaicius nuo -1 iki 10, isridenus -1 ar 0 baigiasi ciklas
-
-    int z;
-    do
-    {
-        //nuo -1 iki 10.
-        z=rand()%12-1;//Kai nera pirmas namu darbas, reiksmes bus generuojamos kol sugeneruos -1 arba 0. 2/12 tikimybe, kad baigsis ciklas
-    }
-    while(Pirmas&&z<=0);//neuzbaigs generavimo isridenus 0 arba -1, kuomet dar nera kitu namu darbu pazymiu
-    if(z>0)
-    if(reikalingas)std::cout<<z<<" ";//pranesa, kokie sugeneruoti
-    //reikalingas visad false atliekant 0.4 uzduoti
+    do{
+    std::cin>>z;
+    }while(z<a||z>b);//vercia vesti reiksmes kol ives viena is intervalo
     return z;
 }
 void ivestmok(std::vector<mokiniai> &mok, int &n)
 {
-    using std::cout;
-    using std::endl;
     cout<<"Iveskite "<<n+1<<"'ojo mokinio varda ir pavarde"<<endl;
     mok.resize(n+1);
     std::cin>>mok[n].vard>>mok[n].pavard;
 
-    int (*rfun)(bool,bool),z;//nuo jo priklauso, bus naudotojo ar tikimybes imputas
-    bool Rand=true;
+    int (*rfun)(int,int),//nuo jo priklauso, bus naudotojo ar tikimybes imputas
+    z,
+    a=1,b=10;//pazymiu intervalo krastai
     cout<<"Jei norit patys ivesti pazymius- iveskit 0. Ivedus kita skaiciu pazymiu skaicius ir reiksmes bus atsitiktines"<<endl;
+    bool Rand;//default reiksme yra false
     std::cin>>z;
-    if(z==0)
-        Rand=false;
+    if(z!=0)
+        Rand=true;
     if(Rand)//jei random, tai...
     {
-        rfun=frand;
+        rfun=rrand;
         cout<<"Sugeneruotos reiksmes: ";
     }
     else//jei ne, tai vartotojas ives naudodamas fcin funkcija
     {
         rfun=fcin;
-        cout<<"Iveskite Nd pazymius. Ivedus maziau nei 1 baigsis ivestis: ";
+        cout<<"Iveskite Nd pazymius. Ivedus "<<a-1<<" baigsis ivestis: ";
     }
-    mok[n].Nd.push_back(rfun(true,true));//bent vienas namu darbas
-    //cout<<mok[n].Nd[0];
-    mok[n].m=1;
-
+    z=rfun(a,b);
+    cout<<z;
+    mok[n].Nd.push_back(z);
     while(true)
     {
 
-        z=rfun(false,true);
-        if(z<=0)
+        z=rfun(a-2,b);//nuo -1 iki 10
+        if(z<=0)//jei -1 arba 0, tai baigsis generacija
             break;
         mok[n].Nd.push_back(z);
-        mok[n].m++;
+        if(Rand)cout<<z<<" ";
     }
-    if(Rand)
-    {
-        cout<<endl<<"Egzamino pazymys: ";
-        z=frand(true,true);
-    }
-    else
-    {
-        cout<<endl<<"Iveskite egzamino pazymi: ";
-        z=fcin(true,true);
-    }
+    (Rand)?
+        cout<<"Egzamino pazymys: ":
+        cout<<"Iveskite egzamino pazymi: ";
+    z=rfun(a,b);
+    cout<<z;
     mok[n].egz=z;
     n++;
     cout<<endl;
 }
 void komandos()
 {
-    using std::cout;
-    using std::endl;
     cout<<"Pradeti naujo mokinio info ivedima- 1"<<endl;
     cout<<"Rodyti visu mokiniu vidurkius- 2"<<endl;
     cout<<"Rodyti visu mokiniu medianas- 3"<<endl;
     cout<<"Skaityti mokiniu info is failo- 4"<<endl;
     cout<<"Rodyti mokiniu info- 5"<<endl;
-    cout<<"Atlikti 0.4 uzduoti: generuoti, rusiuoti, suvesti i failus ir isvesti procesu veiklas - 6"<<endl;
+    cout<<"Atlikti 0.5 uzduoti su vector- 6"<<endl;
     cout<<"Baigti darba- 9"<<endl;
     cout<<"Rodyti komandas- 0"<<endl;
 }
 void skaitMok(std::vector<mokiniai> &mok, int &n)
 {
     std::ifstream in("kursiokai.txt");
-    std::string z;
+    string z;
     bool bol=true;
     int m=-3;
     while(bol)
@@ -127,9 +104,8 @@ void skaitMok(std::vector<mokiniai> &mok, int &n)
     {
         mok.resize(n+1);
         in>>mok[n].vard>>mok[n].pavard;
-        mok[n].m=m;
         mok[n].Nd.resize(m);
-        for(int i=0;i<m;i++){in>>mok[n].Nd[i];}
+        for(int i=0;i<mok[n].Nd.size();i++)in>>mok[n].Nd[i];
         in>>mok[n].egz;
         n++;
     }
@@ -146,9 +122,6 @@ void rykiavimas(std::vector<mokiniai> &mok)
 }
 void isved(std::vector<mokiniai> &mok, int &n, bool Vidur)
 {
-    using std::string;
-    using std::cout;
-    using std::endl;
     rykiavimas(mok);
     string S[3]= {"Pavarde","Vardas","Galutinis"};
     if(Vidur)//jei skaiciuos naudojant vidurki...
@@ -180,14 +153,12 @@ void isved(std::vector<mokiniai> &mok, int &n, bool Vidur)
 }
 void rodyt(const std::vector<mokiniai> &mok, int n)
 {
-    using std::cout;
-    using std::endl;
     if(n!=0)cout<<"Visu mokiniu vardai, pavardes, Nd ir egzaminio pazymiai"<<endl;
     else cout<<"Nera ivesta ar nuskaityta mokiniu"<<endl;
     for(int i=0;i<n;i++)
     {
         cout<<mok[i].vard<<" "<<mok[i].pavard<<" ND: ";
-        for(int j=0; j<mok[i].m; j++)cout<<mok[i].Nd[j]<<" ";
+        for(int j=0; j<mok[i].Nd.size(); j++)cout<<mok[i].Nd[j]<<" ";
         cout<<"Egz: "<<mok[i].egz<<endl;
     }
 }
