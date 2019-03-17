@@ -37,3 +37,6 @@ Pridėta komanda #6 ir naujas header failas funkcijos(0.4).h daugmaž atlieka 0.
 pirma: pabaigoje vietoj to, kad sukurtų du arba antrą vektorių, naudojamas naujas kintamasis bool, juos atskirti.
 antra: įvygdžius #6 komandą bei tarp kiekvieno perėjimo iš pvz. darbo su 10 į darbą su 100 studentų, vektoriai ištrinami (nes ciklai kuriuose jie sukurti baigiasi).
 Generuojamų failų pavadinimai: studentai10.txt -studentai100000.txt, studentaiblog10.txt-..., studentaiGer10.txt-studentai100000.txt .
+
+# v0.5 vector
+Neskaitant užduoties reikalavimo (matuoja programos veikima naudojant vektorius, ignoruojant failų kūrimą), taip pat patobulinau funkcijos.h ir funkcijos(0.4).h. Kelios nereikalingos dalys panaikintos, programa sutrumpinta, supaprastinta, panaikinta struktūros mokinių dalis mok.m, kuri iki šiol talpino vektoriaus mok.Nd namų darbų skaičių. Tik neseniai supratau, kad naudojant rodykles, galima gaut šią reikšmę mok->Nd.size().
