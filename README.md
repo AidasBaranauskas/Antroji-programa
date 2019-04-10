@@ -1,6 +1,6 @@
 # Antroji-programa v0.1.1
 Naudoju meniu, todėl programoje reikia klausyti nurodymų
-Įvestos komandos yra skaičiai, kurie naudotojui su jų paskirtimis išvedami į konsolę.
+Įvestos komandos yra skaičiai, kurie naudotojui su jų paskirtimis išvedami į konsolę programos pradžioje arba įvedus 0, kol esama meniu.
 "
     Pradeti naujo mokinio info ivedima- 1
     Rodyti visu mokiniu vidurkius- 2
@@ -26,3 +26,4 @@ Po egzamino pažymio įvesties grąžinama į meniu
 
 Iš meniu įvedus 2, lygiuotai išvedami mokinių vardai, pavardės ir galutiniai rezultatai pagal Nd vidurkį.
 Iš meniu įvedus 3, bus tas pats kaip ir įvedus 2, tik galutinis priklausys nuo Nd medianos.
+Iš meniu įvedus 9, baigiamas darbas
