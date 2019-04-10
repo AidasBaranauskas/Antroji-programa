@@ -1,4 +1,20 @@
-# Antroji-programa v0.1.1
+# Antroji-programa v0.2.1
+Naujos komandos pridėtos į meniu:
+"Skaityti mokiniu info is failo- 4
+Rodyti mokiniu info- 5;
+Komanda 4 atlieka užduotį, komanda 5 tik dėl patogumo egzistuoja ir ji išveda visa mokinių info.
+
+Programą sukūriau rementis šiuo pradiniu variantu:
+Pavardė     Vardas      ND1  ND2   ND3  ND4  ND5  Egzaminas
+Vardas1     Pavardė1    8    9     10   6    10   9
+Vardas2     Pavardė2    7    10    8    5    4    6
+...
+Programa neveiks, be šios eilutės
+Pavardė     Vardas      ND1  ND2   ND3  ND4  ND5  Egzaminas
+Gali būt ir daugiau ar mažiau ND.
+Išvestis išrykiuota pagal vardą/pavardę.
+
+# Funkcijos pridėtos praeitose versijose (v0.1.1)
 Naudoju meniu, todėl programoje reikia klausyti nurodymų
 Įvestos komandos yra skaičiai, kurie naudotojui su jų paskirtimis išvedami į konsolę programos pradžioje arba įvedus 0, kol esama meniu.
 "
