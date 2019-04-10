@@ -1,7 +1,7 @@
 # Antroji-programa v0.3.1
 Visas funkcijas perkėliau į header failą "funkcijos.h"
 0.3.cpp talpina tik meniu
-Try-catch panaudotas main'e 0.3.cpp faile. Strukturos vis dar naudojamos.
+Try-catch panaudotas main'e 0.3.cpp faile. Strukturos vis dar naudojamos, tik dabar ji įdėta header faile "struct.h"
 
 # Funkcijos pridėtos praeitose versijose 
 (v0.2.1)
