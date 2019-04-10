@@ -1,4 +1,10 @@
-# Antroji-programa v0.2.1
+# Antroji-programa v0.3.1
+Visas funkcijas perkėliau į header failą "funkcijos.h"
+0.3.cpp talpina tik meniu
+Try-catch panaudotas main'e 0.3.cpp faile. Strukturos vis dar naudojamos.
+
+# Funkcijos pridėtos praeitose versijose 
+(v0.2.1)
 Naujos komandos pridėtos į meniu:
 "Skaityti mokiniu info is failo- 4
 Rodyti mokiniu info- 5;
@@ -14,7 +20,7 @@ Pavardė     Vardas      ND1  ND2   ND3  ND4  ND5  Egzaminas
 Gali būt ir daugiau ar mažiau ND.
 Išvestis išrykiuota pagal vardą/pavardę.
 
-# Funkcijos pridėtos praeitose versijose (v0.1.1)
+(v0.1.1)
 Naudoju meniu, todėl programoje reikia klausyti nurodymų
 Įvestos komandos yra skaičiai, kurie naudotojui su jų paskirtimis išvedami į konsolę programos pradžioje arba įvedus 0, kol esama meniu.
 "
