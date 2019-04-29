@@ -1,51 +1,45 @@
-# Antroji-programa v0.3.1
-Visas funkcijas perkėliau į header failą "funkcijos.h"
-0.3.cpp talpina tik meniu
-Try-catch panaudotas main'e 0.3.cpp faile. Strukturos vis dar naudojamos, tik dabar ji įdėta header faile "struct.h"
+# Antroji-programa v0.5.1 ir v1
+Ši programa išpildo 0.5 ir 1.0 reikalavimus, dėl to tikiuos, kad jos užteks
+Programos dalys: 1.0.cpp, funkcijos.h, struct.h, random.hpp.
+Beveik viskas vyks funcijos.h faile.
 
-# Funkcijos pridėtos praeitose versijose 
-(v0.2.1)
-Naujos komandos pridėtos į meniu:
-"Skaityti mokiniu info is failo- 4
-Rodyti mokiniu info- 5;
-Komanda 4 atlieka užduotį, komanda 5 tik dėl patogumo egzistuoja ir ji išveda visa mokinių info.
+Programa pirmiausiai paprašo dviejų kintamųjų įvesties:
+    "Iveskite A ir B, zinant, kad uzduotis bus atlikta su nuo 10^A iki 10^B mokiniu
+    pavyzdziui: jei B=2, A=4, bus 100, 1000 ir 10000 mokiniu: "
+Jie turi būti naturalieji skaičiai (sveiki ir teigiami), pirmas pažesnis už antrą.
 
-Programą sukūriau rementis šiuo pradiniu variantu:
-Pavardė     Vardas      ND1  ND2   ND3  ND4  ND5  Egzaminas
-Vardas1     Pavardė1    8    9     10   6    10   9
-Vardas2     Pavardė2    7    10    8    5    4    6
-...
-Programa neveiks, be šios eilutės
-Pavardė     Vardas      ND1  ND2   ND3  ND4  ND5  Egzaminas
-Gali būt ir daugiau ar mažiau ND.
-Išvestis išrykiuota pagal vardą/pavardę.
+Matuojami procesai bus milisekundžių formatu:
+    "Laikas milisekundemis"
 
-(v0.1.1)
-Naudoju meniu, todėl programoje reikia klausyti nurodymų
-Įvestos komandos yra skaičiai, kurie naudotojui su jų paskirtimis išvedami į konsolę programos pradžioje arba įvedus 0, kol esama meniu.
-"
-    Pradeti naujo mokinio info ivedima- 1
-    Rodyti visu mokiniu vidurkius- 2
-    Rodyti visu mokiniu medianas- 3
-    Baigti darba- 9
-    Rodyti komandas- 0
-"
-Programa nenaudoja C masyvo, tik vektorius. Pažymiai bus intervale [1;10]
-Įvedus 0, išvedama
-  "Iveskite {mokinių skaičius + 1}'ojo mokinio varda ir pavarde"
-Įvedus dvi simbolių sekas, išves:
-  "Jei norit patys ivesti pazymius- iveskit 0. Ivedus kita skaiciu pazymiu skaicius ir reiksmes bus atsitiktines"
-Įvedus ne nulį:
-sugeneruotas atsitiktinis skaičius namų darbų su jų bei egzamino pažymiais. Jie išvedami į konsolę atskirti tarpo simbolių:
-  "Sugeneruotos reiksmes: {Nd paž 1}... {Nd paž 2}
-  Egzamino pazymys: {egz paž}"
-Grąžinama į meniu.
-Įvedus 0:
-  "Iveskite Nd pazymius. Ivedus maziau nei 1 baigsis ivestis: "
-Po bent vieno Nd pažymio ir 0:
-  "Iveskite egzamino pazymi: "
-Po egzamino pažymio įvesties grąžinama į meniu
+Programa daugiau pasirinkimų neduos. Jei įvesti du skaičiai yra A ir B, o X yra skaičius intervale [A;B] nuo A artėjantis iki B (A=2, B=4, X=2,3,4), tai generuojami failai tokiu formatu:
+10^X.txt, 
+10^X vector_lievi.txt, 10^X vector_kietekai.txt,
+10^X list_lievi.txt, 10^X list_kietekai.txt,
+10^X deque_lievi.txt, 10^X deque_kietekai.txt,
 
-Iš meniu įvedus 2, lygiuotai išvedami mokinių vardai, pavardės ir galutiniai rezultatai pagal Nd vidurkį.
-Iš meniu įvedus 3, bus tas pats kaip ir įvedus 2, tik galutinis priklausys nuo Nd medianos.
-Iš meniu įvedus 9, baigiamas darbas
+Pirmas (10^X.txt) failas yra pirminis, jį skaitys ir perkopijuos surūšiąvus į kitus failus.
+Jis turi 10^X+1 eilučių su mokinių info, paskutinė eilutė tuščia.
+Vardas ir pavardė sudaryti iš atsitiktinių angliškų raidžių, tik pirmosios yra didžioji. Ilgis irgi atsitiktinis, bet kiekviena raidė po pirmos turi pastovią tikimybę užbaigti raidžių generaciją.
+Tada eina atsitiktinis skaičius ND pažymių, simbolis '0' atskyrimui, egzamino pažymys ir galutinis su iki
+penkiais skaičiais po kablelio, apskaičiuotas naudojus ND vidurkį. Pvz:
+
+Fqxajcahpkqxybdmqi Hlo 8 3 6 5 0 7 6.4
+Aik Kadyyotyae 6 0 7 6.6
+Cprvd Gzdwbht 1 2 7 0 6 4.93333
+Fqlhdhxxs Fsp 7 9 0 4 5.6
+Stjscyimoebasz Yd 1 8 1 2 3 0 4 3.6
+Zccferwyxav Biptppuxrx 9 0 3 5.4
+
+Kiti 6 failai vaizduoja surūšiuotų mokinių info beveik tuo pačiu formatu- nenaudojamas '0' simbolis tarp paskutinio ND ir egzamino įvertinimų.
+
+Po abiejų skaičių įvesties, į konsolę išvedama:
+    "
+    10^X
+    vector: skaitymas is failo: T,   rusiavimas i grupes: T
+    list: skaitymas is failo: T,   rusiavimas i grupes: T
+    deque: skaitymas is failo: T,   rusiavimas i grupes: T"
+,kai T yra atitinkami laikai milisekundėmis. Tai bus išvedama B-A+1 kartų.
+
+Programoje yra patikra, kuri išveda kiek kartu kietekai ar lievi yra netinkamuose failuose dėl rūšiavimo klaidos. Tikrina ne failus, bet jų kūrimo procesą.
+
+Deque ir vector funkcijos beveik identiškos, skiriasi tik pavadinimai konteineriu, todel nera komentaru deque dalyje.
