@@ -17,13 +17,15 @@ v1.1, du bandymai:
 Skaitymas iš failo žymiai pagreitėjo, bet ne rūšiavimas, nes šis abiejose versijose naudojo vienodą funkciją ir tiek structųra, tiek
 "studentas" klasė talpinti vectoriuje
 
-Optimizavimo flag'ai visiškai napagreitino matuojamų procesų, lyginant juos su rezultatais be jų.
+Optimizavimo flag'ai visiškai napagreitino matuojamų procesų.
 01
-vector: skaitymas is failo: 4859,   rusiavimas i grupes: 531
+"vector: skaitymas is failo: 4859,   rusiavimas i grupes: 531"
 
 02
-vector: skaitymas is failo: 4890,   rusiavimas i grupes: 515
-vector: skaitymas is failo: 4874,   rusiavimas i grupes: 546
+"vector: skaitymas is failo: 4890,   rusiavimas i grupes: 515"
+"vector: skaitymas is failo: 4874,   rusiavimas i grupes: 546"
 
 03
-vector: skaitymas is failo: 4890,   rusiavimas i grupes: 531
+"vector: skaitymas is failo: 4890,   rusiavimas i grupes: 531"
+
+1.0 versijoje naudojau tikrintoją, kuris kietekų ir lievų fail'ų kūrimo metu tikrino ir skaičiavo, kiek studentų prastai surūšiuoti. Taip pat išvesdavo galutinį rezultatą į šiuos failus. Dėl greitesnio (nors ir neskaičiuojamo) darbo, užkomentavau šias dalis.
